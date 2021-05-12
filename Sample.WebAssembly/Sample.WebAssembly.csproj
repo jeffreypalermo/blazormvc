@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazor.Extensions.Logging" Version="2.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.5" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+        <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="BlazorMvc\obj\BlazorMvc.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="BlazorMvc\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="BlazorMvc\obj\project.packagespec.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BlazorMvc\BlazorMvc.csproj" />
+    </ItemGroup>
+
+</Project>
