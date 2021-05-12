@@ -7,6 +7,7 @@ namespace Palermo.BlazorMvc
 {
     public class MvcBus : IUiBus
     {
+
         private bool _disposed;
         private readonly ISet<IListener> _listeners = new HashSet<IListener>();
         private readonly ILogger<MvcBus> _logger;
