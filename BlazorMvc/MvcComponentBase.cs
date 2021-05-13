@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.Logging;
 
 namespace Palermo.BlazorMvc
@@ -56,6 +57,21 @@ namespace Palermo.BlazorMvc
         {
             base.OnAfterRender(firstRender);
             Logger.LogDebug($"{ToString()} OnAfterRender(firstRender:{firstRender})");
+        }
+
+        public RenderFragment GetRenderFragment<TComponent>()
+        {
+            return FragmentBuilder.GetRenderFragment<TComponent>();
+        }
+
+        public void AppendRenderFragment<TComponent>(RenderTreeBuilder builder)
+        {
+            GetRenderFragment<TComponent>()(builder);
+        }
+
+        public RenderFragment GetRenderFragment<TComponent>(Action<TComponent> OnInitializedAction) where TComponent : ControllerComponentBase
+        {
+            return FragmentBuilder.GetRenderFragment<TComponent>(OnInitializedAction);
         }
     }
 }

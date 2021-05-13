@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sample.WebAssembly.Pages
+namespace Sample.WebAssembly.Models
 {
     public class WeatherForecast
     {

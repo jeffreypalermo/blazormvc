@@ -1,7 +1,7 @@
 ﻿using System;
 using Palermo.BlazorMvc;
 
-namespace Sample.WebAssembly
+namespace Sample.WebAssembly.Models
 {
     public class ApplicationHeartbeat : IUiBusEvent
     {

@@ -1,4 +1,5 @@
 ﻿using Palermo.BlazorMvc;
+using Sample.WebAssembly.Models;
 using Sample.WebAssembly.Pages;
 
 namespace Sample.WebAssembly.Shared

@@ -1,5 +1,7 @@
 ﻿using System;
+using Microsoft.AspNetCore.Components.Rendering;
 using Palermo.BlazorMvc;
+using Sample.WebAssembly.Models;
 using Sample.WebAssembly.Pages;
 
 namespace Sample.WebAssembly.Shared
@@ -12,6 +14,12 @@ namespace Sample.WebAssembly.Shared
         {
             var viewForecastSummary = ForecastDay.Invoke().Summary;
             View.ForecastSummary = viewForecastSummary + Guid.NewGuid();
+        }
+
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            base.BuildRenderTree(builder);
+            AppendRenderFragment<CounterController>(builder);
         }
 
         public void Handle(ApplicationHeartbeat theEvent)

@@ -1,32 +1,16 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Components.Rendering;
 using Palermo.BlazorMvc;
+using Sample.WebAssembly.Pages;
+using Sample.WebAssembly.Shared;
 
 namespace Sample.WebAssembly
 {
-    public class AppController : ControllerComponentBase<App>
+    public class AppController : ControllerComponentBase<AppView>
     {
-        private Timer _timer;
-
-        protected override Task OnInitializedAsync()
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
-            _timer = new Timer(_ =>
-            {
-                InvokeAsync(() =>
-                {
-                    Bus.Notify(new ApplicationHeartbeat(DateTime.Now));
-                
-                });
-            }, null, 1000, 1000);
-
-            return base.OnInitializedAsync();
-        }
-        
-        public override void Dispose()
-        {
-            _timer?.Dispose();
-            base.Dispose();
+            base.BuildRenderTree(builder);
+            AppendRenderFragment<HeartbeatController>(builder);
         }
     }
 }

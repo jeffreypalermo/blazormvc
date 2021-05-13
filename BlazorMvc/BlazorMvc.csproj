@@ -4,11 +4,32 @@
         <TargetFramework>net5.0</TargetFramework>
         <AssemblyName>Palermo.BlazorMvc</AssemblyName>
         <RootNamespace>Palermo.BlazorMvc</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageId>BlazorMvc</PackageId>
+        <Version>1.0.2</Version>
+        <Authors>Jeffrey Palermo, Clear Measure</Authors>
+        <Company>Clear Measure, Inc.</Company>
+        <Description>Opt-in Model-View-Controller framework for Blazor. Keep UI logic away from layout and formatting. Enable decoupled and dynamically composed screens along with broadcasted UI events. From a founder of the ASP.NET MvcContrib library.</Description>
+        <Copyright>(c) 2021-present</Copyright>
+        <PackageProjectUrl>https://github.com/jeffreypalermo/blazormvc</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/jeffreypalermo/blazormvc</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <PackageTags>blazor blazormvc webassembly wasm</PackageTags>
+        <PackageReleaseNotes>BlazorMvc is a very straight-forward Model-View-Controller patter implemented for Blazor application. If you find that you need an additional extensibility point, consider taking the code files and placing them in a folder in your application. This may assist you in understanding the logic flow from a controller to a view.</PackageReleaseNotes>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.5" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\..\..\Downloads\LICENSE.txt">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>

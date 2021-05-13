@@ -2,7 +2,9 @@
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
 using Palermo.BlazorMvc;
+using Sample.WebAssembly.Models;
 using Sample.WebAssembly.Shared;
 
 namespace Sample.WebAssembly.Pages
@@ -26,7 +28,7 @@ namespace Sample.WebAssembly.Pages
         {
             _selectedForecast = forecast;
             Bus.Notify(new ForecastDaySelectedEvent(forecast));
-            View.ForecastDayPane = FragmentBuilder<ForecastDayController>.GetRenderFragment(
+            View.ForecastDayPane = FragmentBuilder.GetRenderFragment<ForecastDayController>(
                 controller => { controller.ForecastDay = () => _selectedForecast; });
         }
     }

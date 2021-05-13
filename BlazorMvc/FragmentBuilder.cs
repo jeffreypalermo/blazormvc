@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace Palermo.BlazorMvc
 {
-    public static class FragmentBuilder<TComponent> where TComponent : ControllerComponentBase
+    public static class FragmentBuilder 
     {
-        public static RenderFragment GetRenderFragment()
+        public static RenderFragment GetRenderFragment<TComponent>()
         {
-            var fragment = (RenderFragment) (__builder =>
+            var fragment = (RenderFragment)(__builder =>
             {
                 __builder.OpenComponent(0, typeof(TComponent));
                 __builder.CloseComponent();
@@ -16,7 +16,7 @@ namespace Palermo.BlazorMvc
             return fragment;
         }
 
-        public static RenderFragment GetRenderFragment(Action<TComponent> OnInitializedAction)
+        public static RenderFragment GetRenderFragment<TComponent>(Action<TComponent> OnInitializedAction) where TComponent : ControllerComponentBase
         {
             var fragment = (RenderFragment) (__builder =>
             {
