@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <AssemblyName>Palermo.BlazorMvc</AssemblyName>
         <RootNamespace>Palermo.BlazorMvc</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -17,19 +17,15 @@
         <RepositoryType>Git</RepositoryType>
         <PackageTags>blazor blazormvc webassembly wasm</PackageTags>
         <PackageReleaseNotes>BlazorMvc is a very straight-forward Model-View-Controller patter implemented for Blazor application. If you find that you need an additional extensibility point, consider taking the code files and placing them in a folder in your application. This may assist you in understanding the logic flow from a controller to a view.</PackageReleaseNotes>
-        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <PackageVersion>1.0.3</PackageVersion>
+        <Title>Palermo.BlazorMvc</Title>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/jeffreypalermo/blazormvc/master/LICENSE</PackageLicenseUrl>
+        <AssemblyVersion>1.0</AssemblyVersion>
+        <FileVersion>1.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Components" Version="5.0.5" />
-      <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Include="..\..\..\Downloads\LICENSE.txt">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
+      <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.15" />
     </ItemGroup>
 
 </Project>
