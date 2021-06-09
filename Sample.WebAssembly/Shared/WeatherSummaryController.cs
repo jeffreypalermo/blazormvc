@@ -4,7 +4,8 @@ using Sample.WebAssembly.Pages;
 
 namespace Sample.WebAssembly.Shared
 {
-    public class WeatherSummaryController : ControllerComponentBase<WeatherSummaryView>, IListener<ForecastDaySelectedEvent>, IListener<ApplicationHeartbeat>
+    public class WeatherSummaryController : ControllerComponentBase<WeatherSummaryView>, 
+        IListener<ForecastDaySelectedEvent>, IListener<ApplicationHeartbeat>
     {
         protected override void OnViewInitialized()
         {

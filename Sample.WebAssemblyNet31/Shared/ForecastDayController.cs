@@ -20,6 +20,8 @@ namespace Sample.WebAssemblyNet31.Shared
         {
             base.BuildRenderTree(builder);
             AppendRenderFragment<CounterController>(builder);
+            AppendRenderFragment<CounterController>(builder);
+            AppendRenderFragment<CounterController>(builder);
         }
 
         public void Handle(ApplicationHeartbeat theEvent)
