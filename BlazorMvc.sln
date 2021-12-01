@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.WebAssembly", "Sample.WebAssembly\Sample.WebAssembly.csproj", "{55E3B4E8-DB96-4DCB-A350-08CE1F85DCA8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMvc", "BlazorMvc\BlazorMvc.csproj", "{9354EF32-260F-46F9-AA5C-6F04EE098D51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.WebAssemblyNet31", "Sample.WebAssemblyNet31\Sample.WebAssemblyNet31.csproj", "{DA1C08C6-364B-400C-B305-4BEFBC5F5C53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.WebAssemblyNet31", "Sample.WebAssemblyNet31\Sample.WebAssemblyNet31.csproj", "{DA1C08C6-364B-400C-B305-4BEFBC5F5C53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample.BlazorServerNet6", "Sample.BlazorServerNet6\Sample.BlazorServerNet6.csproj", "{2930944F-1F73-4030-AF3D-E010F3FB769E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9354EF32-260F-46F9-AA5C-6F04EE098D51} = {9354EF32-260F-46F9-AA5C-6F04EE098D51}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +32,10 @@ Global
 		{DA1C08C6-364B-400C-B305-4BEFBC5F5C53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA1C08C6-364B-400C-B305-4BEFBC5F5C53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA1C08C6-364B-400C-B305-4BEFBC5F5C53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2930944F-1F73-4030-AF3D-E010F3FB769E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2930944F-1F73-4030-AF3D-E010F3FB769E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2930944F-1F73-4030-AF3D-E010F3FB769E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2930944F-1F73-4030-AF3D-E010F3FB769E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
