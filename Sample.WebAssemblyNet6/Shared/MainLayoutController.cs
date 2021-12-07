@@ -8,7 +8,7 @@ namespace Sample.WebAssemblyNet6.Shared
         protected override void OnViewInitialized()
         {
             View.SidebarBottom = FragmentBuilder.GetRenderFragment<WeatherSummaryController>();
-            View.SidebarCounter = FragmentBuilder.GetRenderFragment<CounterController>();
+            View.SidebarCounter = FragmentBuilder.GetRenderFragment<StatusFormController>();
         }
     }
 }

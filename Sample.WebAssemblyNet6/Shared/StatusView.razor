@@ -1,0 +1,28 @@
+﻿@inherits Palermo.BlazorMvc.ViewComponentBase
+@using  Sample.WebAssemblyNet6.Models
+@implements IListener<Sample.WebAssemblyNet6.Models.Status>
+
+<div class="card mb-3 status-card">
+   
+    <div class="card-body">
+        <h5 class="card-title">@Status</h5>
+        @if (CanDelete)
+        {
+            <button class="btn btn-danger" @onclick="DeleteMe">Delete</button>
+        }
+       
+    </div>
+</div>
+
+@code {
+
+    public string Status { get; set; }
+    public Action DeleteMe { get; set; }
+    public bool CanDelete { get; set; }
+    public void Handle(Status theEvent)
+    {
+        Status = theEvent.CurrentStatus;
+        StateHasChanged();
+    }
+
+}
