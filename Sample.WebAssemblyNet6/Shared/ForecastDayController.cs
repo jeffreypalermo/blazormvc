@@ -12,14 +12,12 @@ namespace Sample.WebAssemblyNet6.Shared
         protected override void OnViewParametersSet()
         {
             var viewForecastSummary = ForecastDay.Invoke().Summary;
-            View.ForecastSummary = viewForecastSummary + Guid.NewGuid();
+            View.ForecastSummary = viewForecastSummary;
         }
 
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
             base.BuildRenderTree(builder);
-            AppendRenderFragment<CounterController>(builder);
-            AppendRenderFragment<CounterController>(builder);
             AppendRenderFragment<CounterController>(builder);
         }
 

@@ -1,7 +1,6 @@
 ﻿using Palermo.BlazorMvc;
 using Sample.WebAssemblyNet6.Models;
 
-
 namespace Sample.WebAssemblyNet6.Shared
 {
     public class HeartbeatController : MvcComponentBase
@@ -15,7 +14,6 @@ namespace Sample.WebAssemblyNet6.Shared
                 InvokeAsync(() =>
                 {
                     Bus.Notify(new ApplicationHeartbeat(DateTime.Now));
-
                 });
             }, null, 1000, 1000);
 
