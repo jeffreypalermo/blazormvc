@@ -1,27 +1,31 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Palermo.BlazorMvc;
+using Sample.WebAssemblyNet6.Models;
 
 namespace Sample.WebAssemblyNet6.Pages
 {
     [Route("/counter")]
-    public class CounterController : ControllerComponentBase<CounterView>
+    public class CounterController : ControllerComponentBase<CounterView>,
+        IListener<ApplicationHeartbeat>
     {
         private int _currentCount = 0;
 
-        private void IncrementCount()
-        {
-            _currentCount++;
-            View.Model = _currentCount;
-        }
         protected override void OnViewInitialized()
         {
             View.OnIncrement = IncrementCount;
             View.Model = _currentCount;
         }
 
-        protected override void OnViewParametersSet()
+        private void IncrementCount()
         {
+            _currentCount++;
+            View.Model = _currentCount;
+        }
 
+        public void Handle(ApplicationHeartbeat theEvent)
+        {
+            View.Time = theEvent.Time.ToLongTimeString();
+            StateHasChanged();
         }
     }
 }

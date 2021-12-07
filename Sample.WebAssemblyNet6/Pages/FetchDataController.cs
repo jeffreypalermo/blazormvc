@@ -18,6 +18,7 @@ namespace Sample.WebAssemblyNet6.Pages
         protected override async Task OnInitializedAsync()
         {
             _forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+            
             View.Forecasts = _forecasts;
             View.ForecastDaySelected = ViewForecastDaySelected;
         }
@@ -25,9 +26,13 @@ namespace Sample.WebAssemblyNet6.Pages
         private void ViewForecastDaySelected(WeatherForecast forecast)
         {
             _selectedForecast = forecast;
+            
             Bus.Notify(new ForecastDaySelectedEvent(forecast));
             View.ForecastDayPane = FragmentBuilder.GetRenderFragment<ForecastDayController>(
-                controller => { controller.ForecastDay = () => _selectedForecast; });
+                controller =>
+                {
+                    controller.ForecastDay = () => _selectedForecast;
+                });
         }
     }
 }

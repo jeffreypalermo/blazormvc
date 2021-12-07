@@ -5,7 +5,7 @@ namespace Sample.WebAssemblyNet6.Shared
 {
     public class HeartbeatController : MvcComponentBase
     {
-        private Timer _timer;
+        private Timer? _timer;
 
         protected override Task OnInitializedAsync()
         {

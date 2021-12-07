@@ -15,12 +15,6 @@ namespace Sample.WebAssemblyNet6.Shared
             View.ForecastSummary = viewForecastSummary;
         }
 
-        protected override void BuildRenderTree(RenderTreeBuilder builder)
-        {
-            base.BuildRenderTree(builder);
-            AppendRenderFragment<CounterController>(builder);
-        }
-
         public void Handle(ApplicationHeartbeat theEvent)
         {
             View.TimeStamp = theEvent.Time.ToLongTimeString();

@@ -1,23 +1,14 @@
 ﻿@inherits Palermo.BlazorMvc.ViewComponentBase
-@using  Sample.WebAssemblyNet6.Models
-@implements IListener<Sample.WebAssemblyNet6.Models.ApplicationHeartbeat>
 
 <h1>Counter</h1>
 
-<p>Current count: @Model</p>
+<p>Current count: @Model as of @Time</p>
 
 <button class="btn btn-primary" @onclick="OnIncrement">Click me</button>
-<p>Last heartbeat: @Time</p>
 
 @code {
 
     public Action OnIncrement { get; set; }
     public int Model { get; set; }
     public string Time { get; set; }
-    public void Handle(ApplicationHeartbeat theEvent)
-    {
-        Time = theEvent.Time.ToLongTimeString();
-        StateHasChanged();
-    }
-
 }
