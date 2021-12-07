@@ -1,9 +1,21 @@
-﻿@page "/"
+﻿@inherits ViewComponentBase
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>BlazorMvc!</h1>
 
-Welcome to your new app.
+@if (Statuses != null)
+{
+    foreach (var status in @Statuses)
+    {
+        @status.Value
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    }
+}
+
+@code {
+
+    
+    public Dictionary<int, RenderFragment> Statuses = new Dictionary<int, RenderFragment>();
+
+}

@@ -1,0 +1,7 @@
+﻿.form-group {
+    padding: 10px;
+}
+
+.form-group > button {
+    margin-top: 10px;
+}

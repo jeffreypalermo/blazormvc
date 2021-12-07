@@ -1,0 +1,9 @@
+﻿body {
+}
+
+
+.status-card {
+    max-width: 18rem;
+    display: inline-block;
+    margin-right: 1rem;
+}
