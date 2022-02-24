@@ -6,7 +6,7 @@ Blazor MVC is a C# Project that enables the ability to use the MVC framework wit
 - Compatibility with .NET 3, .NET 5, and .NET 6 
 - Compatibility with both Blazor Server applications and Blazor WebAssembly
 - Example projects on how to implement Blazor MVC 
-- Create Controllers and Models for each of your views by extending prebuild classes 
+- Create Controllers and Models for each of your views by extending prebuilt classes 
 
 ## Installation 
 
@@ -73,7 +73,7 @@ using Palermo.BlazorMvc;
 // Change namespace to match yours 
 namespace Sample.WebAssemblyNet6 
 { 
-    // AppView is the default app view. If you created a new Blazor application this class will be names App. We renamed it to AppView 
+    // AppView is the default app view. If you created a new Blazor application this class will be named App. We renamed it to AppView 
     public class AppController : ControllerComponentBase<AppView> 
     { 
         protected override void BuildRenderTree(RenderTreeBuilder builder) 
@@ -128,7 +128,7 @@ using Palermo.BlazorMvc;
 // Change namespace to match yours 
 namespace Sample.BlazorServerNet6 
 { 
-    // AppView is the default app view. If you created a new Blazor application this class will be names App. We renamed it to AppView 
+    // AppView is the default app view. If you created a new Blazor application this class will be named App. We renamed it to AppView 
     public class AppController : ControllerComponentBase<AppView> 
     { 
         protected override void BuildRenderTree(RenderTreeBuilder builder) 
