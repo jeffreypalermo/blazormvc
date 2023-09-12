@@ -6,7 +6,7 @@ $source_dir = "$base_dir"
 $unitTestProjectPath = "$source_dir\UnitTests"
 $integrationTestProjectPath = "$source_dir\IntegrationTests"
 $acceptanceTestProjectPath = "$source_dir\AcceptanceTests"
-$uiProjectPath = "$source_dir\Sample.WebAssemblyNet6"
+$projectPath = "$source_dir\Sample.WebAssemblyNet6"
 $projectConfig = $env:BuildConfiguration
 $framework = "net6.0"
 $version = $env:BUILD_BUILDNUMBER
@@ -99,12 +99,12 @@ Function AcceptanceTest{
 	}
 }
 
-Function PackageUI {    
+Function PackageDistributable {    
     exec{
-        & dotnet publish $uiProjectPath -nologo --no-restore --no-build -v $verbosity --configuration $projectConfig
+        & dotnet publish $projectPath -nologo --no-restore --no-build -v $verbosity --configuration $projectConfig
     }
 	exec{
-		& dotnet-octo pack --id "$projectName.UI" --version $version --basePath $uiProjectPath\bin\$projectConfig\$framework\publish --outFolder $build_dir  --overwrite
+		& dotnet-octo pack --id "$projectName" --version $version --basePath $projectPath\bin\$projectConfig\$framework\publish --outFolder $build_dir  --overwrite
 	}
 }
 
@@ -121,7 +121,7 @@ Function PackageAcceptanceTests {
 Function Package{
 	Write-Output "Packaging nuget packages"
 	dotnet tool install --global Octopus.DotNet.Cli | Write-Output $_ -ErrorAction SilentlyContinue #prevents red color is already installed
-    PackageUI
+    PackageDistributable
     PackageAcceptanceTests
 }
 
