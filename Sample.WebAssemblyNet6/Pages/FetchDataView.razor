@@ -44,9 +44,9 @@ else
 }
 
 @code {
-    public WeatherForecast[] Forecasts { get; set; }
+    public WeatherForecast[] Forecasts { get; set; } = null!;
 
-    public Action<WeatherForecast> ForecastDaySelected { get; set; }
-    public RenderFragment ForecastDayPane { get; set; }
+    public Action<WeatherForecast> ForecastDaySelected { get; set; } = null!;
+    public RenderFragment ForecastDayPane { get; set; } = null!;
 
 }

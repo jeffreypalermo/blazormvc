@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Components.Rendering;
-using Palermo.BlazorMvc;
+﻿using Palermo.BlazorMvc;
 using Sample.WebAssemblyNet6.Models;
-using Sample.WebAssemblyNet6.Pages;
 
 namespace Sample.WebAssemblyNet6.Shared
 {
     public class ForecastDayController : ControllerComponentBase<ForecastDayView>, IListener<ApplicationHeartbeat>
     {
-        public Func<WeatherForecast> ForecastDay { get; set; }
+        public Func<WeatherForecast> ForecastDay { get; set; } = null!;
 
         protected override void OnViewParametersSet()
         {

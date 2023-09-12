@@ -5,7 +5,7 @@ namespace Sample.BlazorServerNet6.Shared
 {
     public class HeartbeatController : MvcComponentBase
     {
-        private Timer _timer;
+        private Timer _timer = null!;
 
         protected override Task OnInitializedAsync()
         {

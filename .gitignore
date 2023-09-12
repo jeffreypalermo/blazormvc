@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.cobertura.xml
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -30,6 +31,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+**/**/coverage.json
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -347,5 +349,13 @@ healthchecksdb
 MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
-.ionide/
-/.idea
+.ionide
+
+/build/*
+/build/test
+coverage.cobertura.xml
+coverage.json
+/src/.idea/.idea.ChurchBulletin/.idea
+/src/AcceptanceTests/coverage.json
+/src/IntegrationTests/coverage.json
+/src/UnitTests/coverage.json
