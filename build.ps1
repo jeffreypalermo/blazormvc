@@ -6,7 +6,7 @@ $source_dir = "$base_dir"
 $unitTestProjectPath = "$source_dir\UnitTests"
 $integrationTestProjectPath = "$source_dir\IntegrationTests"
 $acceptanceTestProjectPath = "$source_dir\AcceptanceTests"
-$projectPath = "$source_dir\Sample.WebAssemblyNet6"
+$projectPath = "$source_dir\BlazorMvc"
 $projectConfig = $env:BuildConfiguration
 $framework = "net6.0"
 $version = $env:BUILD_BUILDNUMBER
@@ -80,6 +80,7 @@ Function IntegrationTest{
 }
 
 Function AcceptanceTest{
+	[Environment]::SetEnvironmentVariable("AppURL", "localhost:7025", "User")
 	$serverProcess = Start-Process dotnet.exe "run --project $source_dir\Sample.WebAssemblyNet6\Sample.WebAssemblyNet6.csproj --configuration $projectConfig -nologo --no-restore --no-build -v $verbosity" -PassThru
 	Start-Sleep 1 #let the server process spin up for 1 second
 
@@ -143,6 +144,7 @@ Function CIBuild{
 	Compile
 	UnitTests
 	IntegrationTest
+	AcceptanceTest
 	Package
 	$sw.Stop()
 	write-host "BUILD SUCCEEDED - Build time: " $sw.Elapsed.ToString() -ForegroundColor Green

@@ -2,9 +2,9 @@
 
 <h1>Counter</h1>
 
-<p>Current count: @Model as of @Time</p>
+<p ref="currentCount">Current count: @Model as of @Time</p>
 
-<button class="btn btn-primary" @onclick="OnIncrement">Click me</button>
+<button class="btn btn-primary" @onclick="OnIncrement" ref="counterButton">Click me</button>
 
 @code {
 

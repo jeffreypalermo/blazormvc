@@ -351,7 +351,7 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide
 
-/build
+/build/*
 /build/test
 coverage.cobertura.xml
 coverage.json
@@ -359,6 +359,3 @@ coverage.json
 /src/AcceptanceTests/coverage.json
 /src/IntegrationTests/coverage.json
 /src/UnitTests/coverage.json
-/build/test/AcceptanceTests/JeffreyPalermo_DESKTOP-2UEMO92_2023-09-11_21_30_44.trx
-/build/test/IntegrationTests/JeffreyPalermo_DESKTOP-2UEMO92_2023-09-11_21_30_32.trx
-/build/test/UnitTests/JeffreyPalermo_DESKTOP-2UEMO92_2023-09-11_21_30_21.trx
