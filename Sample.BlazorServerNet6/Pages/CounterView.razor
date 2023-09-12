@@ -11,9 +11,9 @@
 
 @code {
 
-    public Action OnIncrement { get; set; }
+    public Action OnIncrement { get; set; } = null!;
     public int Model { get; set; }
-    public string Time { get; set; }
+    public string? Time { get; set; }
     public void Handle(ApplicationHeartbeat theEvent)
     {
         Time = theEvent.Time.ToLongTimeString();

@@ -1,0 +1,205 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  BUILD_BUILDNUMBER: 1.0.${{ github.run_number }}
+  OCTOPUS_API_KEY: ${{ secrets.OCTO_API_KEY  }}
+  OCTOPUS_URL: ${{ secrets.OCTOPUS_URL }}
+  TDD_RESOURCE_GROUP: onion-architecture-dotnet-7-containers-TDD
+  TDD_APP_NAME: tdd-ui
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET 7
+      uses: actions/setup-dotnet@v3.0.3
+      with:
+        dotnet-version: 7.0.x
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v3.0.3
+      with:
+        dotnet-version: 6.0.x
+    - name: Build Script
+      run: |
+        [System.Environment]::SetEnvironmentVariable('Version','${{ env.BUILD_BUILDNUMBER }}')
+        . .\build.ps1 ; CIBuild
+
+
+    - name: Push NuGet packages   
+      run: |
+        foreach($file in (Get-ChildItem ".\build\" -Recurse -Include *.nupkg)) {
+          dotnet nuget push $file --source "https://nuget.pkg.github.com/${{ vars.OWNER }}/index.json" --api-key ${{ secrets.PACKAGESAPI }}
+        }  
+
+
+  dockerbuildandpush:
+    needs: build
+
+    runs-on: 'ubuntu-latest'
+
+    steps:
+
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@main
+
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Download UI Package
+      run: |
+        nuget sources Add -Name github -Source https://nuget.pkg.github.com/${{ vars.OWNER }}/index.json -UserName ${{ vars.USERNAME }} -Password ${{ secrets.PACKAGESAPI }}
+        nuget install ChurchBulletin.UI -Version ${{ env.BUILD_BUILDNUMBER }} -Source "https://nuget.pkg.github.com/${{ vars.OWNER }}/index.json"
+        mv ChurchBulletin.UI.${{ env.BUILD_BUILDNUMBER }} built
+
+    - name: 'Build and push image'
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    - run: |
+        docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/churchbulletin.ui:${{ env.BUILD_BUILDNUMBER }}
+        docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/churchbulletin.ui:${{ env.BUILD_BUILDNUMBER }}
+
+
+  TDD:
+    needs: dockerbuildandpush
+    runs-on: 'windows-latest'
+    environment:
+      name: TDD
+    steps: 
+
+    - name: Install Octopus CLI
+      uses: OctopusDeploy/install-octopus-cli-action@v1
+      with:
+        version: latest
+
+    - name: Create release and deploy to TDD
+      uses: OctopusDeploy/create-release-action@v1
+      with:
+        api_key: ${{ secrets.OCTO_API_KEY  }}
+        server: ${{ secrets.OCTOPUS_URL }}
+        space: ${{ vars.OCTOPUS_SPACE }}       
+        project: ${{ vars.OCTOPUS_PROJECT }}
+        git_ref: ${{ (github.ref_type == 'tag' && github.event.repository.default_branch ) || (github.head_ref || github.ref) }}
+        git_commit: ${{ github.event.after || github.event.pull_request.head.sha }}     
+        deploy_to: "TDD"   
+        progress: true 
+        release_number: ${{env.BUILD_BUILDNUMBER}}
+        deployment_timeout: 00:30:00
+        package_version: ${{env.BUILD_BUILDNUMBER}}
+        variables: |
+          ResourceGroupName:${{env.TDD_RESOURCE_GROUP}}-${{env.BUILD_BUILDNUMBER}}
+          container_app_name:${{env.TDD_APP_NAME}}
+          
+
+        
+
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Get Container App URL
+      run: |
+        Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi
+        Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'
+        az config set extension.use_dynamic_install=yes_without_prompt
+        $containerAppURL = az containerapp show --resource-group ${{env.TDD_RESOURCE_GROUP}}-${{env.BUILD_BUILDNUMBER}} --name ${{env.TDD_APP_NAME}} --query properties.configuration.ingress.fqdn
+        $containerAppURL = $containerAppURL -replace '"', ''
+        [System.Environment]::SetEnvironmentVariable("containerAppURL", $containerAppURL, "User")
+      shell: pwsh
+
+    - name: Download Acceptance Test Package
+      run: |
+        nuget sources Add -Name github -Source https://nuget.pkg.github.com/${{ vars.OWNER }}/index.json -UserName ${{ vars.USERNAME }} -Password ${{ secrets.PACKAGESAPI }}
+        nuget install ChurchBulletin.AcceptanceTests -Version ${{ env.BUILD_BUILDNUMBER }} -Source "https://nuget.pkg.github.com/${{ vars.OWNER }}/index.json"
+
+    - name: Run tests
+      uses: microsoft/vstest-action@v1.0.0
+      with:
+        testAssembly: |
+          **\*AcceptanceTests.dll
+          !**\*TestAdapter.dll
+          !**\obj\**
+        searchFolder: ./ChurchBulletin.AcceptanceTests.${{ env.BUILD_BUILDNUMBER }}/
+        runInParallel: true 
+
+  Delete-TDD: 
+    needs: TDD
+    runs-on: 'ubuntu-latest'    
+    steps:
+
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Delete TDD resources
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.30.0
+        inlineScript: |
+          az group delete -n ${{env.TDD_RESOURCE_GROUP}}-${{env.BUILD_BUILDNUMBER}} --yes
+        
+  UAT:
+    needs: TDD
+    runs-on: 'windows-latest'
+    environment:
+      name: UAT
+    steps:
+
+    - name: Install Octopus CLI
+      uses: OctopusDeploy/install-octopus-cli-action@v1
+      with:
+        version: latest
+
+    - name: Deploy-to-UAT
+      id: deploy-to-uat
+      uses: dmarttinen/deploy-release-action@v0.3.0
+      with:
+        api_key: ${{ secrets.OCTO_API_KEY  }}
+        server: ${{ secrets.OCTOPUS_URL }}
+        space: ${{ vars.OCTOPUS_SPACE }}       
+        project: ${{ vars.OCTOPUS_PROJECT }}   
+        deploy_to: "UAT"   
+        progress: true 
+        release_number: ${{env.BUILD_BUILDNUMBER}}
+        timeout: 00:30:00
+
+
+  Prod:
+    needs: UAT
+    runs-on: 'windows-latest'
+    environment:
+      name: Prod
+    steps:
+
+    - name: Install Octopus CLI
+      uses: OctopusDeploy/install-octopus-cli-action@v1
+      with:
+        version: latest
+
+    - name: Deploy-to-Prod
+      id: deploy-to-prod
+      uses: dmarttinen/deploy-release-action@v0.3.0
+      with:
+        api_key: ${{ secrets.OCTO_API_KEY  }}
+        server: ${{ secrets.OCTOPUS_URL }}
+        space: ${{ vars.OCTOPUS_SPACE }}       
+        project: ${{ vars.OCTOPUS_PROJECT }}   
+        deploy_to: "Prod"   
+        progress: true 
+        release_number: ${{env.BUILD_BUILDNUMBER}}
+        timeout: 00:30:00
