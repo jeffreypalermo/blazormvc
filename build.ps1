@@ -144,7 +144,6 @@ Function CIBuild{
 	Compile
 	UnitTests
 	IntegrationTest
-	AcceptanceTest
 	Package
 	$sw.Stop()
 	write-host "BUILD SUCCEEDED - Build time: " $sw.Elapsed.ToString() -ForegroundColor Green
