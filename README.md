@@ -1,4 +1,5 @@
-# Blazor MVC 
+
+[![.NET](https://github.com/jeffreypalermo/blazormvc/actions/workflows/dotnet.yml/badge.svg)](https://github.com/jeffreypalermo/blazormvc/actions/workflows/dotnet.yml)# Blazor MVC 
 ### _Add C# MVC capability to any Blazor application_ 
 Blazor MVC is a C# Project that enables the ability to use the MVC framework with Blazor applications. Developers that have experience with this framework in the past can have familiar structure and quickly move into Blazor.  
 ## Features 
