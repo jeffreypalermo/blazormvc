@@ -8,6 +8,7 @@ namespace Sample.WebAssemblyNet6
     {
         protected override void BuildRenderTree(RenderTreeBuilder builder)
         {
+
             base.BuildRenderTree(builder);
             AppendRenderFragment<HeartbeatController>(builder);
         }

@@ -1,0 +1,35 @@
+﻿@inherits ViewComponentBase
+
+
+
+    <div class="form-group">
+       
+        <input  class="form-control"  @bind="NewStatus"  type="text"/>
+        
+
+        <button class="btn btn-primary" @onclick="UpdateStatus">Update</button>
+    </div>
+    <div class="form-group">
+        
+        <select class="form-control" @bind="AddCount" id="exampleFormControlSelect1">
+            <option value="1" selected="selected">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="100">100</option>
+        </select>
+        
+        <button class="btn btn-primary" @onclick="AddStatus">Add Status</button>
+    </div>
+
+
+
+
+
+
+@code {
+    public Action UpdateStatus { get; set; }
+    public Action AddStatus { get; set; }
+    public string NewStatus { get; set; }
+    public int AddCount { get; set; }
+}

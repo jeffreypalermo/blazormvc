@@ -1,14 +1,21 @@
-﻿@page "/"
+﻿@inherits ViewComponentBase
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
+<h1>BlazorMvc!</h1>
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 <button @onclick="AddAnotherCounter">Add another child</button>
+
+
+
+@if (Statuses != null)
+{
+    foreach (var status in @Statuses)
+    {
+        @status.Value
+    }
+}
 
 @foreach (RenderFragment fragment in _fragments)
 {
@@ -16,6 +23,10 @@ Welcome to your new app.
 }
 
 @code {
+
+    
+    public Dictionary<int, RenderFragment> Statuses = new Dictionary<int, RenderFragment>();
+
     List<RenderFragment> _fragments = new List<RenderFragment>();
 
     private void AddAnotherCounter()
