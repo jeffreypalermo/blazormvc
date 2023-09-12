@@ -4,10 +4,10 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <AssemblyName>Palermo.BlazorMvc</AssemblyName>
         <RootNamespace>Palermo.BlazorMvc</RootNamespace>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageId>BlazorMvc</PackageId>
-        <Version>1.0.2</Version>
+        <Version>2.1.1</Version>
         <Authors>Jeffrey Palermo, Clear Measure</Authors>
         <Company>Clear Measure, Inc.</Company>
         <Description>Opt-in Model-View-Controller framework for Blazor. Keep UI logic away from layout and formatting. Enable decoupled and dynamically composed screens along with broadcasted UI events. From a founder of the ASP.NET MvcContrib library.</Description>
@@ -17,12 +17,20 @@
         <RepositoryType>Git</RepositoryType>
         <PackageTags>blazor blazormvc webassembly wasm</PackageTags>
         <PackageReleaseNotes>BlazorMvc is a very straight-forward Model-View-Controller patter implemented for Blazor application. If you find that you need an additional extensibility point, consider taking the code files and placing them in a folder in your application. This may assist you in understanding the logic flow from a controller to a view.</PackageReleaseNotes>
-        <PackageVersion>1.0.3</PackageVersion>
+        <PackageVersion>2.1.1</PackageVersion>
         <Title>Palermo.BlazorMvc</Title>
         <PackageLicenseUrl>https://raw.githubusercontent.com/jeffreypalermo/blazormvc/master/LICENSE</PackageLicenseUrl>
         <AssemblyVersion>1.0</AssemblyVersion>
         <FileVersion>1.0</FileVersion>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
+
+    <ItemGroup>
+      <None Include="..\README.md">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+    </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.15" />

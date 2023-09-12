@@ -1,0 +1,31 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  BUILD_BUILDNUMBER: 1.0.${{ github.run_number }}
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET 7
+      uses: actions/setup-dotnet@v3.0.3
+      with:
+        dotnet-version: 7.0.x
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v3.0.3
+      with:
+        dotnet-version: 6.0.x
+    - name: Build Script
+      run: |
+        [System.Environment]::SetEnvironmentVariable('Version','${{ env.BUILD_BUILDNUMBER }}')
+        . .\build.ps1 ; CIBuild
+

@@ -3,14 +3,23 @@
 <PageTitle>Index</PageTitle>
 
 <h1>BlazorMvc!</h1>
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<button @onclick="AddAnotherCounter">Add another child</button>
+
+
 
 @if (Statuses != null)
 {
     foreach (var status in @Statuses)
     {
         @status.Value
-
     }
+}
+
+@foreach (RenderFragment fragment in _fragments)
+{
+    @fragment
 }
 
 @code {
@@ -18,4 +27,10 @@
     
     public Dictionary<int, RenderFragment> Statuses = new Dictionary<int, RenderFragment>();
 
+    List<RenderFragment> _fragments = new List<RenderFragment>();
+
+    private void AddAnotherCounter()
+    {
+        _fragments.Add(FragmentBuilder.GetRenderFragment<CounterController>());
+    }
 }

@@ -8,7 +8,7 @@ namespace Sample.BlazorServerNet6.Shared
 {
     public class ForecastDayController : ControllerComponentBase<ForecastDayView>, IListener<ApplicationHeartbeat>
     {
-        public Func<WeatherForecast> ForecastDay { get; set; }
+        public Func<WeatherForecast> ForecastDay { get; set; } = null!;
 
         protected override void OnViewParametersSet()
         {

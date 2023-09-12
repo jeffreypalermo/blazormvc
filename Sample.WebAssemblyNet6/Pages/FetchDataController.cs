@@ -10,14 +10,14 @@ namespace Sample.WebAssemblyNet6.Pages
     [Route("/fetchdata")]
     public class FetchDataController : ControllerComponentBase<FetchDataView>
     {
-        private WeatherForecast[] _forecasts;
-        private WeatherForecast _selectedForecast;
+        private WeatherForecast[] _forecasts = null!;
+        private WeatherForecast _selectedForecast = null!;
 
-        [Inject] public HttpClient Http { get; set; }
+        [Inject] public HttpClient Http { get; set; } = null!;
 
         protected override async Task OnInitializedAsync()
         {
-            _forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+            _forecasts = (await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json"))!;
             View.Forecasts = _forecasts;
             View.ForecastDaySelected = ViewForecastDaySelected;
         }

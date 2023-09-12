@@ -16,13 +16,13 @@ namespace Sample.BlazorServerNet6.Pages
         private WeatherForecast[]? _forecasts;
         private WeatherForecast? _selectedForecast;
 
-        [Inject] public WeatherForecastService? weatherForecastService { get; set; }
+        [Inject] public WeatherForecastService? WeatherForecastService { get; set; }
 
       
 
         protected override void OnViewInitialized()
         {
-            _forecasts = weatherForecastService.GetForecastAsync(DateTime.Now).GetAwaiter().GetResult();
+            _forecasts = WeatherForecastService!.GetForecastAsync(DateTime.Now).GetAwaiter().GetResult();
             View.Forecasts = _forecasts;
             View.ForecastDaySelected = ViewForecastDaySelected;
             
