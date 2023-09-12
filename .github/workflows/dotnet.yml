@@ -29,8 +29,3 @@ jobs:
         [System.Environment]::SetEnvironmentVariable('Version','${{ env.BUILD_BUILDNUMBER }}')
         . .\build.ps1 ; CIBuild
 
-    - name: Push NuGet packages   
-      run: |
-        foreach($file in (Get-ChildItem ".\build\" -Recurse -Include *.nupkg)) {
-          dotnet nuget push $file --source "https://nuget.pkg.github.com/${{ vars.OWNER }}/index.json" --api-key ${{ secrets.PACKAGESAPI }}
-        }  
