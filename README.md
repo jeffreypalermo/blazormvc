@@ -6,8 +6,8 @@
 Blazor MVC is a C# Project that enables the ability to use the MVC framework with Blazor applications. Developers that have experience with this framework in the past can have familiar structure and quickly move into Blazor.  
 ## Features 
 
-- Compatibility with .NET 3, .NET 5, and .NET 6 
-- Compatibility with both Blazor Server applications and Blazor WebAssembly
+- Compatibility with .NET 3, .NET 5, .NET 6, and .NET 8
+- Compatibility with both Blazor Server applications and Blazor WebAssembly (as well as Blazor full-stack web applications in .NET 8)
 - Example projects on how to implement Blazor MVC 
 - Create Controllers and Models for each of your views by extending prebuilt classes 
 
@@ -105,7 +105,7 @@ namespace Sample.WebAssemblyNet6
 </Router> 
 ``` 
 
-### Blazor Server Aplication 
+### Blazor Server Application 
 
 - `Program.cs` 
 
@@ -162,6 +162,107 @@ namespace Sample.BlazorServerNet6
 
 - `_Host.cshtml` 
 
-``` 
+```
+![image](https://github.com/user-attachments/assets/408c28f5-c14e-490f-b462-4c6abeca5c0e)
+
 <component type="typeof(AppController)" render-mode="ServerPrerendered" /> 
+``` 
+
+### Blazor Web Application (.NET 8)
+
+First, add a dependency to the BlazorMvc project from both the server and the client projects
+
+Then, in the client project, make the following changes:
+
+- `Program.cs` 
+
+``` 
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Logging.Abstractions;
+using Palermo.BlazorMvc;
+
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.Services.AddScoped<IUiBus>(provider => new MvcBus(NullLogger<MvcBus>.Instance));
+
+await builder.Build().RunAsync();
+``` 
+
+- `AppController.cs` - Create a new class  
+
+``` 
+using Microsoft.AspNetCore.Components.Rendering; 
+using Palermo.BlazorMvc; 
+
+// Change namespace to match yours 
+namespace Sample.WebAppNet8.Client
+{
+    // AppView is the default app view. If you created a new Blazor web application this class will be named Routes. We renamed it to AppView.
+    public class AppController : ControllerComponentBase<AppView>
+    {
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            base.BuildRenderTree(builder);
+        }
+    }
+}
+``` 
+
+- `AppView.razor`- This is the Routes.razor file that was renamed 
+
+``` 
+@inherits Palermo.BlazorMvc.ViewComponentBase
+
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayoutController)">
+        </RouteView>
+    </Found>
+    <NotFound>
+        <LayoutView Layout="@typeof(MainLayoutController)">
+            <p>Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>
+``` 
+
+Next, in the server project, update Program.cs to add the UiBus service to the service collection (it needs to be added to both the server and the client). 
+The first few lines of Program.cs will then look like this:
+
+``` 
+using Microsoft.Extensions.Logging.Abstractions;    
+using Palermo.BlazorMvc;                            
+using Sample.WebAppNet8.Components;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<IUiBus>(provider => new MvcBus(NullLogger<MvcBus>.Instance));
+
+// Add services to the container.
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
+``` 
+
+Finally, update App.razor in the Components folder of the server app, replacing Routes with AppController. The example is using global interactive auto render mode:
+
+``` 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="Sample.WebAppNet8.styles.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <HeadOutlet @rendermode="InteractiveAuto" />
+</head>
+
+<body>
+    <AppController @rendermode="InteractiveAuto" />
+    <script src="_framework/blazor.web.js"></script>
+</body>
+
+</html>
 ``` 

@@ -1,0 +1,11 @@
+﻿@inherits Palermo.BlazorMvc.ViewComponentBase
+<h5 class="nav-item">WeatherSummaryView</h5>
+<div class="nav-item">
+    @WeatherSummary
+</div>
+<p class="nav-item">@Time</p>
+@code {
+    public string WeatherSummary { get; set; } = null!;
+    public string Time { get; set; } = null!;
+
+}

@@ -29,11 +29,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{289099F6-86C2-4D6A-883E-1625DD23F1EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{289099F6-86C2-4D6A-883E-1625DD23F1EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{C19E8D29-63EB-465B-BB04-4A567AC493AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{C19E8D29-63EB-465B-BB04-4A567AC493AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AcceptanceTests", "AcceptanceTests\AcceptanceTests.csproj", "{01F2F606-3221-419C-B2CD-F8AB239E2AC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AcceptanceTests", "AcceptanceTests\AcceptanceTests.csproj", "{01F2F606-3221-419C-B2CD-F8AB239E2AC8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.WebAppNet8", "Sample.WebAppNet8\Sample.WebAppNet8\Sample.WebAppNet8.csproj", "{D27676A9-167B-4475-8796-4B967872E2E8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.WebAppNet8.Client", "Sample.WebAppNet8\Sample.WebAppNet8.Client\Sample.WebAppNet8.Client.csproj", "{E75E7076-96AE-4444-8ABC-41DB50A7EA1E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.WebAssemblyNet8", "Sample.WebAssemblyNet8\Sample.WebAssemblyNet8.csproj", "{0F8F515F-A5F5-423E-B5F9-1ACAD3D43F32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +79,18 @@ Global
 		{01F2F606-3221-419C-B2CD-F8AB239E2AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01F2F606-3221-419C-B2CD-F8AB239E2AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01F2F606-3221-419C-B2CD-F8AB239E2AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D27676A9-167B-4475-8796-4B967872E2E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D27676A9-167B-4475-8796-4B967872E2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D27676A9-167B-4475-8796-4B967872E2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D27676A9-167B-4475-8796-4B967872E2E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E75E7076-96AE-4444-8ABC-41DB50A7EA1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E75E7076-96AE-4444-8ABC-41DB50A7EA1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E75E7076-96AE-4444-8ABC-41DB50A7EA1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E75E7076-96AE-4444-8ABC-41DB50A7EA1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F8F515F-A5F5-423E-B5F9-1ACAD3D43F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F8F515F-A5F5-423E-B5F9-1ACAD3D43F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F8F515F-A5F5-423E-B5F9-1ACAD3D43F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F8F515F-A5F5-423E-B5F9-1ACAD3D43F32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

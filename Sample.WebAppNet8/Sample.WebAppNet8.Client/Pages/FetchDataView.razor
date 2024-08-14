@@ -1,0 +1,52 @@
+﻿@using Sample.WebAppNet8.Client.Models
+@inherits ViewComponentBase
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (Forecasts == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Temp. (C)</th>
+            <th>Temp. (F)</th>
+            <th>Summary</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var forecast in Forecasts)
+        {
+            <tr>
+                <td><a @onclick="@(()=>ForecastDaySelected(forecast))">@forecast.Date.ToShortDateString()</a></td>
+                <td>@forecast.TemperatureC</td>
+                <td>@forecast.TemperatureF</td>
+                <td>@forecast.Summary</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+    <div>
+        @if (ForecastDayPane != null)
+        {
+            @ForecastDayPane
+        }
+    </div>
+}
+
+@code {
+    public WeatherForecast[] Forecasts { get; set; } = null!;
+
+    public Action<WeatherForecast> ForecastDaySelected { get; set; } = null!;
+    public RenderFragment ForecastDayPane { get; set; } = null!;
+
+}
